@@ -66,3 +66,22 @@ main,footer{position:relative;z-index:1}
 h2{position:relative}
 @media(hover:none){.cursor-glow{display:none}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important}}
+
+/* ---------- scroll effects ---------- */
+.reveal.done{transition:border-color .25s,box-shadow .25s,transform .25s}
+.timeline{position:relative;padding-left:34px}
+.timeline::before{content:"";position:absolute;left:8px;top:0;bottom:0;width:2px;background:var(--line)}
+.timeline::after{content:"";position:absolute;left:8px;top:0;bottom:0;width:2px;transform-origin:top;transform:scaleY(var(--p,0));
+  background:linear-gradient(var(--a),var(--b));box-shadow:0 0 12px var(--a)}
+.timeline .card::after{content:"";position:absolute;left:-33px;top:30px;width:12px;height:12px;border-radius:50%;background:var(--bg);border:2px solid var(--line);transition:.4s}
+.timeline .card.show::after{border-color:var(--a);background:var(--a);box-shadow:0 0 12px var(--a)}
+.timeline .reveal{transform:translateX(-40px)}
+.timeline .reveal.show{transform:none}
+.timeline .card{overflow:visible}
+.slide-h{opacity:0;transform:translateY(30px);clip-path:inset(0 100% 0 0);transition:all .8s cubic-bezier(.2,.7,.2,1)}
+.slide-h.show{opacity:1;transform:none;clip-path:inset(0 0 0 0)}
+nav a.active{color:var(--a)}
+header{transition:padding .3s,box-shadow .3s}
+header.small{padding:8px 5vw;box-shadow:0 6px 24px -12px #000}
+.hero>*{will-change:transform,opacity}
+body::before{translate:0 var(--gy,0)}body::after{translate:0 calc(var(--gy,0)*-1)}

@@ -51,3 +51,35 @@ size();addEventListener('resize',size);addEventListener('mousemove',e=>{m.x=e.cl
   });
   requestAnimationFrame(draw);
 })();
+
+/* ---------- scroll effects ---------- */
+// slide-in headings
+document.querySelectorAll('section h2,section .tag').forEach(el=>{el.classList.add('slide-h');io.observe(el)});
+// staggered card reveal
+document.querySelectorAll('.grid,.timeline,#education').forEach(g=>{
+  [...g.querySelectorAll(':scope>.reveal')].forEach((c,i)=>c.style.transitionDelay=(i*110)+'ms');
+});
+document.querySelectorAll('.reveal').forEach(c=>c.addEventListener('transitionend',function f(e){
+  if(e.propertyName==='opacity'){c.style.transitionDelay='0ms';c.classList.add('done');c.removeEventListener('transitionend',f)}}));
+
+// active nav link
+const links=[...document.querySelectorAll('nav a[href^="#"]')];
+const spy=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting)links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id))
+}),{rootMargin:'-45% 0px -50% 0px'});
+document.querySelectorAll('section[id]').forEach(s=>spy.observe(s));
+
+// scroll-linked: hero parallax/fade, timeline line draw, header shrink
+const hero=document.querySelector('.hero'),tl=document.querySelector('.timeline'),hd=document.getElementById('site-header');
+function onScroll(){
+  const y=scrollY,h=innerHeight;
+  hd.classList.toggle('small',y>60);
+  if(y<h*1.2){const t=Math.min(y/(h*.8),1);
+    hero.style.transform=`translateY(${y*.25}px)`;hero.style.opacity=1-t;}
+  document.body.style.setProperty('--par',y);
+  glowShift(y);
+  const r=tl.getBoundingClientRect();
+  tl.style.setProperty('--p',Math.min(Math.max((h*.6-r.top)/r.height,0),1));
+}
+function glowShift(y){document.body.style.setProperty('--gy',(y*-.08)+'px')}
+addEventListener('scroll',onScroll,{passive:true});onScroll();
