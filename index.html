@@ -13,6 +13,10 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<canvas id="bg"></canvas>
+<div class="grid-bg"></div>
+<div class="cursor-glow"></div>
+<div class="progress"></div>
 <header id="site-header">
   <a class="logo" href="#top">&lt;saad/&gt;</a>
   <nav>
@@ -26,7 +30,7 @@
 <section class="hero">
   <p class="mono tag">$ whoami</p>
   <h1>Md Saad <span class="grad">Khan.</span></h1>
-  <p class="role mono">Electronics Systems · FPGA · Edge-AI</p>
+  <p class="role mono"><span id="typed"></span><span class="caret">|</span></p>
   <p class="lead">Electronics student at IIT Madras with a strong foundation in signal processing, embedded systems and Edge-AI. I design filtering circuits, deploy CNN models on edge devices and work with FPGA-based systems. Interested in wireless communication and signal analysis research.</p>
   <div class="cta">
     <a class="btn primary" href="#projects">View my work</a>
